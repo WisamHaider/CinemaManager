@@ -51,3 +51,5 @@ The aim of the program is to create a cinema booking system made for the staff, 
 **Prices and movies**: Set from a given data set.
 
 #### Second stage:
+
+![](C:\Users\Wisam%20Haider\AppData\Roaming\marktext\images\2026-05-07-14-22-15-image.png)
