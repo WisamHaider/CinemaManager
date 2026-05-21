@@ -59,6 +59,7 @@ double Booking::calculateTotal()
 
 // Getters
 
+
 string Booking::getCustomerName(){
     return customerName;
 }
