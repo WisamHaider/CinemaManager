@@ -5,48 +5,40 @@
 #include "Film.h"
 
 // Default Constructor
-Film::Film()
-{
+Film::Film(){
     title = "";
     genre = "";
     length = 0;
 }
 
-Film::Film(string t, string g, int l)
-{
+Film::Film(string t, string g, int l){
     title = t;
     genre = g;
     length = l;
 }
 
 // Getters
-string Film::getTitle()
-{
+string Film::getTitle(){
     return title;
 }
 
-string Film::getGenre()
-{
+string Film::getGenre(){
     return genre;
 }
 
-int Film::getLength()
-{
+int Film::getLength(){
     return length;
 }
 
 // Setters
-void Film::setTitle(string t)
-{
+void Film::setTitle(string t){
     title = t;
 }
 
-void Film::setGenre(string g)
-{
+void Film::setGenre(string g){
     genre = g;
 }
 
-void Film::setLength(int l)
-{
+void Film::setLength(int l){
     length = l;
 }

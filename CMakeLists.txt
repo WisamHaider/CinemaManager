@@ -6,4 +6,6 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(453Stages main.cpp
         Film.cpp
         Film.h
+        Booking.cpp
+        Booking.h
 )
