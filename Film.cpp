@@ -22,6 +22,7 @@ string Film::getTitle(){
     return title;
 }
 
+
 string Film::getGenre(){
     return genre;
 }
