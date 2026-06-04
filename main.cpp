@@ -11,34 +11,19 @@ void displayFilms(vector<Film>& films)
 
     for (int i = 0; i < films.size(); i++)
     {
-        cout << i + 1 << ". "
-             << films[i].getTitle()
-             << " | Genre: " << films[i].getGenre()
-             << " | Runtime: " << films[i].getLength()
-             << " mins\n";
+        cout << i + 1 << ". "<< films[i].getTitle() << " | Genre: " << films[i].getGenre()
+             << " | Runtime: " << films[i].getLength() << " mins\n";
     }
 }
 
 int main() {
     vector<Film> films;
 
-    films.push_back(Film(
-        "Avengers Endgame",
-        "Action",
-        181
-    ));
+    films.push_back(Film("Avengers Endgame","Action",181));
 
-    films.push_back(Film(
-        "Interstellar",
-        "Space",
-        169
-    ));
+    films.push_back(Film("Interstellar","Space",169));
 
-    films.push_back(Film(
-        "Batman",
-        "Action",
-        176
-    ));
+    films.push_back(Film("Batman","Action",176));
 
     int filmChoice;
     string customerName;
@@ -61,8 +46,7 @@ int main() {
     // Validation
     while (filmChoice < 1 || filmChoice > films.size())
     {
-        cout << "Invalid film selection. Try again: ";
-        cin >> filmChoice;
+        cout << "Invalid film selection. Try again: ";cin >> filmChoice;
     }
 
     cin.ignore();
@@ -89,10 +73,7 @@ int main() {
     cin >> seniorTickets;
 
 
-    while (adultTickets < 0 ||
-           childTickets < 0 ||
-           studentTickets < 0 ||
-           seniorTickets < 0)
+    while (adultTickets < 0 ||childTickets < 0 ||studentTickets < 0 ||seniorTickets < 0)
     {
         cout << "Ticket numbers cannot be negative.\n";
 
@@ -126,7 +107,7 @@ int main() {
 
     double total = booking.calculateTotal();
 
-    cout << "\n===== BOOKING SUMMARY =====\n";
+    cout << "\nBooking Summary\n";
 
     cout << "Customer: " << booking.getCustomerName() << endl;
     cout << "Film: " << booking.getFilmTitle() << endl;
