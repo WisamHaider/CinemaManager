@@ -114,7 +114,7 @@ int main() {
     cout << "Date: " << booking.getBookingDate() << endl;
     cout << "Time: " << booking.getBookingTime() << endl;
 
-    cout << "Total Cost: £" << total << endl;
+    cout << "Total Cost: " << total << endl;
 
     if (paymentMethod == "cash")
     {
@@ -130,7 +130,7 @@ int main() {
             cin >> cashPaid;
         }
 
-        cout << "Change: £" << cashPaid - total << endl;
+        cout << "Change: " << cashPaid - total << endl;
     }
     else if (paymentMethod == "card")
     {
