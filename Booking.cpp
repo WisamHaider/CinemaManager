@@ -21,15 +21,8 @@ Booking::Booking()
     paymentMethod = "";
 }
 
-Booking::Booking(string customer,
-                 string film,
-                 string date,
-                 string time,
-                 int adult,
-                 int child,
-                 int student,
-                 int senior,
-                 string payment)
+Booking::Booking(string customer,string film,string date,string time,int adult,
+    int child,int student,int senior,string payment)
 {
     customerName = customer;
     filmTitle = film;
