@@ -134,8 +134,13 @@ void CinemaManager::createBooking()
     {
         double cashPaid;
 
-        cout << "Cash received: £";
-        cin >> cashPaid;
+        cout << "Cash received: ";
+        while (!(cin >> cashPaid) || cashPaid < 0)
+        {
+            cin.clear();
+            cin.ignore(10000, '\n');
+            cout << "Invalid input. Cash received: £";
+        }
 
         while (cashPaid < total)
         {

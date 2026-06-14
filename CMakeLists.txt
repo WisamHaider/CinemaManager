@@ -10,4 +10,6 @@ add_executable(453Stages main.cpp
         Booking.h
         CinemaManager.cpp
         CinemaManager.h
+        Screen.h
+        Screen.cpp
 )
