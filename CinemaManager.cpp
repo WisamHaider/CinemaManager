@@ -45,22 +45,21 @@ void CinemaManager::createBooking()
     string bookingDate;
     string bookingTime;
 
-    int adultTickets;
-    int childTickets;
-    int studentTickets;
-    int seniorTickets;
+    int adultTickets = 0;
+    int childTickets = 0;
+    int studentTickets = 0;
+    int seniorTickets = 0;
 
     string paymentMethod;
 
     displayFilms();
 
     cout << "\nSelect film: ";
-    cin >> filmChoice;
-
-    while (filmChoice < 1 || filmChoice > films.size())
+    while (!(cin >> filmChoice) || filmChoice < 1 || filmChoice > films.size())
     {
+        cin.clear();
+        cin.ignore(10000, '\n');
         cout << "Invalid film selection. Try again: ";
-        cin >> filmChoice;
     }
 
     cin.ignore();
@@ -75,42 +74,50 @@ void CinemaManager::createBooking()
     getline(cin, bookingTime);
 
     cout << "\nAdult tickets: ";
-    cin >> adultTickets;
-
-    cout << "Child tickets: ";
-    cin >> childTickets;
-
-    cout << "Student tickets: ";
-    cin >> studentTickets;
-
-    cout << "Senior tickets: ";
-    cin >> seniorTickets;
-
-    while (cin.fail() || adultTickets < 0 || childTickets < 0 || studentTickets < 0 || seniorTickets < 0)
+    while (!(cin >> adultTickets) || adultTickets < 0)
     {
         cin.clear();
         cin.ignore(10000, '\n');
-
-        cout << "Invalid input. Ticket numbers cannot be negative.\n";
-
-        cout << "Adult tickets: ";
-        cin >> adultTickets;
-
-        cout << "Child tickets: ";
-        cin >> childTickets;
-
-        cout << "Student tickets: ";
-        cin >> studentTickets;
-
-        cout << "Senior tickets: ";
-        cin >> seniorTickets;
+        cout << "Invalid input. Adult tickets: ";
     }
+
+    cout << "Child tickets: ";
+    while (!(cin >> childTickets) || childTickets < 0)
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input. Child tickets: ";
+    }
+
+    cout << "Student tickets: ";
+    while (!(cin >> studentTickets) || studentTickets < 0)
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input. Student tickets: ";
+    }
+
+    cout << "Senior tickets: ";
+    while (!(cin >> seniorTickets) || seniorTickets < 0)
+    {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        cout << "Invalid input. Senior tickets: ";
+    }
+
+    cin.ignore();
 
     cout << "\nPayment method (cash/card): ";
     cin >> paymentMethod;
 
-    Booking booking(customerName,films[filmChoice - 1].getTitle(),bookingDate,
-        bookingTime,adultTickets,childTickets,studentTickets,seniorTickets,paymentMethod);
+    while (paymentMethod != "cash" && paymentMethod != "card")
+    {
+        cout << "Invalid payment type. Please enter 'cash' or 'card': ";
+        cin >> paymentMethod;
+    }
+
+    Booking booking(customerName, films[filmChoice - 1].getTitle(), bookingDate,
+        bookingTime, adultTickets, childTickets, studentTickets, seniorTickets, paymentMethod);
 
     double total = booking.calculateTotal();
 
@@ -127,13 +134,13 @@ void CinemaManager::createBooking()
     {
         double cashPaid;
 
-        cout << "Cash received: ";
+        cout << "Cash received: £";
         cin >> cashPaid;
 
         while (cashPaid < total)
         {
             cout << "Insufficient cash.\n";
-            cout << "Enter cash amount again: ";
+            cout << "Enter cash amount again: £";
             cin >> cashPaid;
         }
 
@@ -155,10 +162,6 @@ void CinemaManager::createBooking()
         cin >> expiry;
 
         cout << "Card payment approved.\n";
-    }
-    else
-    {
-        cout << "Invalid payment type.\n";
     }
 
     cout << "\nBooking completed successfully.\n";
