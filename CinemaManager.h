@@ -26,4 +26,4 @@ public:
     void createBooking();
 };
 
-#endif //INC_453STAGES_CINEMAMANAGER_H
+#endif

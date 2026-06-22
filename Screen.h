@@ -48,4 +48,4 @@ public:
     void releaseSeats(int numSeats);
 };
 
-#endif //INC_453STAGES_SCREEN_H
+#endif
