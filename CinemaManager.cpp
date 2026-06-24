@@ -44,6 +44,15 @@ void CinemaManager::createBooking()
     cout << "\nSelect film: ";
     int filmChoice = getValidIntInput(1, films.size());
 
+    for (int i = 0; i < screens.size(); i++)
+    {
+        if (screens[i].getScreenNo() == filmChoice)
+        {
+            screens[i].displayScreenInfo();
+            break;
+        }
+    }
+
     cin.ignore();
 
     string customerName;
@@ -161,8 +170,6 @@ void CinemaManager::allocateFilmToScreen(int screenNo, Film* film)
         if (screens[i].getScreenNo() == screenNo)
         {
             screens[i].allocateFilm(film);
-            cout << "Film '" << film->getTitle() << "' allocated to Screen " << screenNo << endl;
-            screens[i].displayScreenInfo();
             return;
         }
     }

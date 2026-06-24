@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "Film.h"
-#include "screen.h"
+#include "Screen.h"
 #include "Booking.h"
 
 using namespace std;

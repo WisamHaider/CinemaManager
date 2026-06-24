@@ -82,12 +82,13 @@ void Screen::calculateShowtimes(){
 
     int filmLength = currentFilm->getLength();
     int timePerShowing = filmLength + 25; // 25 min gap
-    int totalMinutesPerDay = 16 * 60; // 8 AM to 12 AM = 16 hours
-    int startTime = 8 * 60; // 8 AM in minutes
+    int cinemaOpenTime = 8 * 60; // 8 AM in minutes
+    int cinemaCloseTime = 23 * 60 + 59; // 11:59 PM in minutes
+    int startTime = cinemaOpenTime; // 8 AM in minutes
 
     int currentTime = startTime;
 
-    while (currentTime + filmLength <= totalMinutesPerDay){
+    while (currentTime + filmLength <= cinemaCloseTime){
         int hours = currentTime / 60;
         int minutes = currentTime % 60;
 
@@ -116,7 +117,7 @@ void Screen::displayScreenInfo(){
             cout << showtimes[i];
             if (i < showtimes.size() - 1) cout << ", ";
         }
-        cout << endl;
+        cout << "\n" << endl;
     } else {
         cout << "No film scheduled" << endl;
     }
