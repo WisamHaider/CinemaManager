@@ -17,21 +17,40 @@ class CinemaManager
 private:
     vector<Film> films;
     vector<Screen> screens;
+    vector<Booking> bookingHistory;
 
     int getValidIntInput(int min, int max);
     double getValidDoubleInput();
+    string getValidStringInput();
+
 public:
     CinemaManager();
 
+    // Film Management
     void addDefaultFilms();
     void displayFilms();
     Film* getFilmByTitle(string title);
 
+    // Screen Management
     void initializeScreens();
+    void scheduleFilmsToScreens();
+    void displayScreensForFilm(string filmTitle);
     void displayAllScreens();
-    void allocateFilmToScreen(int screenNo, Film* film);
 
+    // Booking Management
     void createBooking();
+    void saveBookingToHistory(Booking booking);
+    void displayBookingHistory();
+    void searchBookingsByName(string name);
+    void searchBookingsByFilm(string film);
+    void searchBookingsByDate(string date);
+
+    // Manager Functions
+    void managerAddNewFilm();
+    void managerCreateWeeklySchedule();
+    void displayMainMenu();
+    void displayStaffMenu();
+    void displayManagerMenu();
 };
 
 #endif

@@ -74,7 +74,7 @@ void Screen::allocateFilm(Film* film){
     calculateShowtimes();
 }
 
-// Calculate showtimes
+// Calculate showtimes based on film length
 void Screen::calculateShowtimes(){
     showtimes.clear();
 
@@ -82,9 +82,10 @@ void Screen::calculateShowtimes(){
 
     int filmLength = currentFilm->getLength();
     int timePerShowing = filmLength + 25; // 25 min gap
-    int cinemaOpenTime = 8 * 60; // 8 AM in minutes
-    int cinemaCloseTime = 23 * 60 + 59; // 11:59 PM in minutes
-    int startTime = cinemaOpenTime; // 8 AM in minutes
+    int cinemaOpenTime = 10 * 60; // 10:00 AM in minutes
+    int earliestShowTime = 10 * 60 + 15; // 10:15 AM in minutes
+    int cinemaCloseTime = 23 * 60 + 30; // 23:30 (11:30 PM) in minutes
+    int startTime = earliestShowTime;
 
     int currentTime = startTime;
 
@@ -117,7 +118,7 @@ void Screen::displayScreenInfo(){
             cout << showtimes[i];
             if (i < showtimes.size() - 1) cout << ", ";
         }
-        cout << "\n" << endl;
+        cout << endl;
     } else {
         cout << "No film scheduled" << endl;
     }
@@ -132,7 +133,7 @@ void Screen::bookSeats(int numSeats){
     }
 }
 
-// Cancelling
+// Release seats (cancellation)
 void Screen::releaseSeats(int numSeats){
     if (availableSeats + numSeats <= maxSeats){
         availableSeats += numSeats;
