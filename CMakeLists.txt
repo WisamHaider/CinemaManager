@@ -12,4 +12,6 @@ add_executable(453Stages main.cpp
         CinemaManager.h
         Screen.h
         Screen.cpp
+        FileManager.cpp
+        FileManager.h
 )

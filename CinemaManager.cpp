@@ -176,7 +176,7 @@ void CinemaManager::saveBookingToHistory(Booking booking)
 
 void CinemaManager::displayBookingHistory()
 {
-    cout << "\n=== Booking History ===" << endl;
+    cout << "\n--- Booking History ---" << endl;
     if (bookingHistory.size() == 0)
     {
         cout << "No bookings found." << endl;
