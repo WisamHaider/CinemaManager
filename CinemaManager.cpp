@@ -56,13 +56,46 @@ void CinemaManager::createBooking()
     cout << "Customer name: ";
     getline(cin, customerName);
 
+    // Validate customer name
+    if (Validation::isEmpty(customerName))
+    {
+        cout << "Error: Customer name cannot be empty!" << endl;
+        return;
+    }
+
     string bookingDate;
     cout << "Booking date (DD/MM/YYYY): ";
     getline(cin, bookingDate);
 
+    // Validate date
+    if (!Validation::isValidDate(bookingDate))
+    {
+        cout << "Error: Invalid date format! Please use DD/MM/YYYY" << endl;
+        return;
+    }
+
+    if (!Validation::isCurrentWeek(bookingDate))
+    {
+        cout << "Error: Bookings can only be made for the current week (Thursday-Wednesday)!" << endl;
+        return;
+    }
+
     string bookingTime;
     cout << "Booking time (HH:MM): ";
     getline(cin, bookingTime);
+
+    // Validate time
+    if (!Validation::isValidTime(bookingTime))
+    {
+        cout << "Error: Invalid time format! Please use HH:MM" << endl;
+        return;
+    }
+
+    if (!Validation::isWithinCinemaHours(bookingTime))
+    {
+        cout << "Error: Cinema is only open 10:00 - 23:30!" << endl;
+        return;
+    }
 
     cout << "\nAdult tickets: ";
     int adultTickets = getValidIntInput(0, 100);
@@ -79,6 +112,12 @@ void CinemaManager::createBooking()
     // Check if total tickets exceed screen capacity
     int totalTickets = adultTickets + childTickets + studentTickets + seniorTickets;
 
+    if (totalTickets <= 0)
+    {
+        cout << "Error: You must book at least one ticket!" << endl;
+        return;
+    }
+
     // Find the screen showing this film
     int selectedScreenCapacity = 0;
     for (int i = 0; i < screens.size(); i++)
@@ -91,7 +130,8 @@ void CinemaManager::createBooking()
         }
     }
 
-    if (totalTickets > selectedScreenCapacity)
+    // Validate seats
+    if (!Validation::hasEnoughSeats(totalTickets, selectedScreenCapacity))
     {
         cout << "\nError: Not enough seats available! Only " << selectedScreenCapacity << " seats left." << endl;
         return;
@@ -114,12 +154,12 @@ void CinemaManager::createBooking()
 
     double total = booking.calculateTotal();
 
-    cout << "\n--- Booking Summary ---" << endl;
+    cout << "\n=== Booking Summary ===" << endl;
     cout << "Customer: " << booking.getCustomerName() << endl;
     cout << "Film: " << booking.getFilmTitle() << endl;
     cout << "Date: " << booking.getBookingDate() << endl;
     cout << "Time: " << booking.getBookingTime() << endl;
-    cout << "Total Cost: " << total << endl;
+    cout << "Total Cost: £" << total << endl;
 
     if (paymentMethod == "cash")
     {
@@ -165,6 +205,9 @@ void CinemaManager::createBooking()
 
     // Save booking to history
     saveBookingToHistory(booking);
+
+    // Save booking to file
+    fileManager.saveBookingToFile(booking);
 
     cout << "\nBooking completed successfully.\n";
 }
@@ -323,8 +366,11 @@ void CinemaManager::managerCreateWeeklySchedule()
         cout << "Screen " << screens[i].getScreenNo() << " allocated with " << films[filmChoice - 1].getTitle() << endl;
     }
 
-    cout << "\nWeekly schedule created successfully!" << endl;
-    cout << "All showtimes have been calculated based on cinema hours (10:00-23:30)." << endl;
+    // Save schedule to file
+    fileManager.saveScheduleToFile(screens);
+
+    cout << "\nWeekly schedule created and saved successfully!" << endl;
+    cout << "All showtimes have been calculated based on cinema hours." << endl;
 }
 
 Film* CinemaManager::getFilmByTitle(string title)
@@ -477,4 +523,8 @@ void CinemaManager::displayManagerMenu()
     cout << "4. View All Bookings" << endl;
     cout << "5. Back to Main Menu" << endl;
     cout << "Enter choice (1-5): ";
+}
+void CinemaManager::displayScheduleFromFile()
+{
+    fileManager.loadScheduleFromFile();
 }

@@ -14,4 +14,6 @@ add_executable(453Stages main.cpp
         Screen.cpp
         FileManager.cpp
         FileManager.h
+        Validation.cpp
+        Validation.h
 )

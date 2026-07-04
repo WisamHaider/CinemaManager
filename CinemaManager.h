@@ -9,6 +9,8 @@
 #include "Film.h"
 #include "Screen.h"
 #include "Booking.h"
+#include "FileManager.h"
+#include "Validation.h"
 
 using namespace std;
 
@@ -18,6 +20,7 @@ private:
     vector<Film> films;
     vector<Screen> screens;
     vector<Booking> bookingHistory;
+    FileManager fileManager;
 
     int getValidIntInput(int min, int max);
     double getValidDoubleInput();
@@ -51,6 +54,8 @@ public:
     void displayMainMenu();
     void displayStaffMenu();
     void displayManagerMenu();
+
+    void displayScheduleFromFile();
 };
 
 #endif

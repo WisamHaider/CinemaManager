@@ -1,10 +1,12 @@
 #include "CinemaManager.h"
 #include <iostream>
+#include "FileManager.h"
 
 using namespace std;
 
 int main()
 {
+    FileManager fileManager;
     CinemaManager cinema;
     cout << "Welcome to Cinema Booking System" << endl;
     bool running = true;
@@ -71,17 +73,35 @@ int main()
                 cinema.displayManagerMenu();
                 int managerChoice;
                 cin >> managerChoice;
-                if (managerChoice == 1){cinema.managerAddNewFilm();}
 
-                else if (managerChoice == 2){cinema.managerCreateWeeklySchedule();}
-
-                else if (managerChoice == 3){cinema.displayAllScreens();}
-
-                else if (managerChoice == 4){cinema.displayBookingHistory();}
-
-                else if (managerChoice == 5){managerRunning = false;}
-
-                else{cout << "Invalid choice. Please try again." << endl;}
+                if (managerChoice == 1)
+                {
+                    cinema.managerAddNewFilm();
+                }
+                else if (managerChoice == 2)
+                {
+                    cinema.managerCreateWeeklySchedule();
+                }
+                else if (managerChoice == 3)
+                {
+                    cinema.displayAllScreens();
+                    cout << "\n--- Or view saved schedule: ---" << endl;
+                    cinema.displayScheduleFromFile();
+                }
+                else if (managerChoice == 4)
+                {
+                    cinema.displayBookingHistory();
+                    cout << "\n--- Or view bookings from file: ---" << endl;
+                    fileManager.displayBookingsFromFile();
+                }
+                else if (managerChoice == 5)
+                {
+                    managerRunning = false;
+                }
+                else
+                {
+                    cout << "Invalid choice. Please try again." << endl;
+                }
             }
         }
         else if (mainChoice == 3)
