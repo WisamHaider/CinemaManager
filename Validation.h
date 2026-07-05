@@ -15,11 +15,11 @@ public:
     Validation();
 
     // Date validation
-    static bool isValidDate(string date); // DD/MM/YYYY format
+    static bool isValidDate(string date);
 
     // Time validation
-    static bool isValidTime(string time); // HH:MM format
-    static bool isWithinCinemaHours(string time); // 10:00-23:30
+    static bool isValidTime(string time);
+    static bool isWithinCinemaHours(string time);
 
     // Booking validation
     static bool hasEnoughSeats(int requestedTickets, int availableSeats);
