@@ -1,6 +1,7 @@
 #include "CinemaManager.h"
 #include <iostream>
 #include "FileManager.h"
+#include "Validation.h"
 
 using namespace std;
 
@@ -8,13 +9,14 @@ int main()
 {
     FileManager fileManager;
     CinemaManager cinema;
+    Validation validate;
     cout << "Welcome to Cinema Booking System" << endl;
     bool running = true;
     while (running)
     {
         cinema.displayMainMenu();
         int mainChoice;
-        cin >> mainChoice;
+        mainChoice = cinema.getValidIntInput(1,3);
         if (mainChoice == 1)
         {
             // Staff Mode
@@ -23,7 +25,7 @@ int main()
             {
                 cinema.displayStaffMenu();
                 int staffChoice;
-                cin >> staffChoice;
+                staffChoice = cinema.getValidIntInput(1,6);
 
                 if (staffChoice == 1)
                 {
@@ -51,7 +53,12 @@ int main()
                     string date;
                     cout << "Enter date (DD/MM/YYYY): ";
                     getline(cin, date);
-                    cinema.searchBookingsByDate(date);
+                    if (validate.isValidDate(date) == true) {
+                        cinema.searchBookingsByDate(date);
+                    }
+                    else {
+                        cout << "Invalid date. Please try again." << endl;
+                    }
                 }
                 else if (staffChoice == 5)
                 {
@@ -72,7 +79,7 @@ int main()
             {
                 cinema.displayManagerMenu();
                 int managerChoice;
-                cin >> managerChoice;
+                managerChoice = cinema.getValidIntInput(1,5);
 
                 if (managerChoice == 1)
                 {

@@ -22,9 +22,6 @@ private:
     vector<Booking> bookingHistory;
     FileManager fileManager;
 
-    int getValidIntInput(int min, int max);
-    double getValidDoubleInput();
-    string getValidStringInput();
 
 public:
     CinemaManager();
@@ -56,6 +53,10 @@ public:
     void displayManagerMenu();
 
     void displayScheduleFromFile();
+
+    int getValidIntInput(int min, int max);
+    double getValidDoubleInput();
+    string getValidStringInput();
 };
 
 #endif

@@ -50,6 +50,10 @@ vector<string> Screen::getShowtimes(){
     return showtimes;
 }
 
+vector<string> Screen::getShowEndTimes(){
+    return showEndTimes;
+}
+
 // Setters
 void Screen::setScreenNo(int no){
     screenNo = no;
@@ -100,6 +104,20 @@ void Screen::calculateShowtimes(){
         timeStr += to_string(minutes);
 
         showtimes.push_back(timeStr);
+
+        // Calculate and store end time
+        int endTime = currentTime + filmLength;
+        int endHours = endTime / 60;
+        int endMinutes = endTime % 60;
+
+        string endTimeStr = "";
+        if (endHours < 10) endTimeStr += "0";
+        endTimeStr += to_string(endHours) + ":";
+        if (endMinutes < 10) endTimeStr += "0";
+        endTimeStr += to_string(endMinutes);
+
+        showEndTimes.push_back(endTimeStr);
+
         currentTime += timePerShowing;
     }
 }
@@ -113,10 +131,19 @@ void Screen::displayScreenInfo(){
 
     if (currentFilm != nullptr){
         cout << "Current Film: " << currentFilm->getTitle() << endl;
-        cout << "Showtimes: ";
+        cout << "Start Times: ";
+        vector<string> showtimes = getShowtimes();
         for (int i = 0; i < showtimes.size(); i++){
             cout << showtimes[i];
             if (i < showtimes.size() - 1) cout << ", ";
+        }
+        cout << endl;
+
+        cout << "End Times: ";
+        vector<string> endTimes = getShowEndTimes();
+        for (int i = 0; i < endTimes.size(); i++){
+            cout << endTimes[i];
+            if (i < endTimes.size() - 1) cout << ", ";
         }
         cout << endl;
     } else {

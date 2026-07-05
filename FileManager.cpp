@@ -122,6 +122,7 @@ void FileManager::displayBookingsFromFile()
     file.close();
 }
 
+// Replace existing saveScheduleToFile method with:
 void FileManager::saveScheduleToFile(vector<Screen> screens)
 {
     ofstream file(SCHEDULE_FILE);
@@ -132,14 +133,13 @@ void FileManager::saveScheduleToFile(vector<Screen> screens)
         return;
     }
 
-    // Write header
-    file << "Screen No,Facility,Film Title,Max Seats,Available Seats,Showtimes\n";
+    // Write header with Start Time and End Time columns
+    file << "Screen No,Facility,Film Title,Max Seats,Available Seats,Start Times,End Times\n";
 
     // Write schedule data
     for (int i = 0; i < screens.size(); i++)
     {
-        file << screens[i].getScreenNo() << ","
-             << screens[i].getFacility() << ",";
+        file << screens[i].getScreenNo() << ","<< screens[i].getFacility() << ",";
 
         if (screens[i].getCurrentFilm() != nullptr)
         {
@@ -153,11 +153,21 @@ void FileManager::saveScheduleToFile(vector<Screen> screens)
         file << screens[i].getMaxSeats() << ","
              << screens[i].getAvailableSeats() << ",";
 
+        // Write START times
         vector<string> showtimes = screens[i].getShowtimes();
         for (int j = 0; j < showtimes.size(); j++)
         {
             file << showtimes[j];
             if (j < showtimes.size() - 1) file << "|";
+        }
+        file << ",";
+
+        // Write end times
+        vector<string> endTimes = screens[i].getShowEndTimes();
+        for (int j = 0; j < endTimes.size(); j++)
+        {
+            file << endTimes[j];
+            if (j < endTimes.size() - 1) file << "|";
         }
 
         file << "\n";
@@ -166,7 +176,6 @@ void FileManager::saveScheduleToFile(vector<Screen> screens)
     file.close();
     cout << "Schedule saved to file successfully." << endl;
 }
-
 void FileManager::loadScheduleFromFile()
 {
     ifstream file(SCHEDULE_FILE);
@@ -177,9 +186,9 @@ void FileManager::loadScheduleFromFile()
         return;
     }
 
-    cout << "\n--- Weekly Schedule from File ---" << endl;
-    cout << "Screen | Facility | Film Title | Max Seats | Available | Showtimes" << endl;
-    cout << "-------|----------|------------|-----------|-----------|-------------------" << endl;
+    cout << "\n=== Weekly Schedule from File ===" << endl;
+    cout << "Screen | Facility | Film Title | Start Times | End Times" << endl;
+    cout << "-------|----------|------------|-------------|----------" << endl;
 
     string line;
     bool firstLine = true;
@@ -193,18 +202,17 @@ void FileManager::loadScheduleFromFile()
         }
 
         stringstream ss(line);
-        // (cppreference, 2011)
-        string screenNo, facility, filmTitle, maxSeats, availableSeats, showtimes;
+        string screenNo, facility, filmTitle, maxSeats, availableSeats, startTimes, endTimes;
 
         getline(ss, screenNo, ',');
         getline(ss, facility, ',');
         getline(ss, filmTitle, ',');
         getline(ss, maxSeats, ',');
         getline(ss, availableSeats, ',');
-        getline(ss, showtimes, ',');
+        getline(ss, startTimes, ',');
+        getline(ss, endTimes, ',');
 
-        cout << screenNo << " | " << facility << " | " << filmTitle << " | "
-             << maxSeats << " | " << availableSeats << " | " << showtimes << endl;
+        cout << screenNo << " | " << facility << " | " << filmTitle << " | "<< startTimes << " | " << endTimes << endl;
     }
 
     file.close();

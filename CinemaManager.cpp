@@ -263,7 +263,7 @@ void CinemaManager::searchBookingsByName(string name)
 
 void CinemaManager::searchBookingsByFilm(string film)
 {
-    cout << "\n=== Search Results for Film: " << film << " ===" << endl;
+    cout << "\n--- Search Results for Film: " << film << " ---" << endl;
     bool found = false;
 
     for (int i = 0; i < bookingHistory.size(); i++)
@@ -287,7 +287,7 @@ void CinemaManager::searchBookingsByFilm(string film)
 
 void CinemaManager::searchBookingsByDate(string date)
 {
-    cout << "\n=== Search Results for Date: " << date << " ===" << endl;
+    cout << "\n--- Search Results for Date: " << date << " ---" << endl;
     bool found = false;
 
     for (int i = 0; i < bookingHistory.size(); i++)
@@ -409,9 +409,9 @@ void CinemaManager::scheduleFilmsToScreens()
 
 void CinemaManager::displayScreensForFilm(string filmTitle)
 {
-    cout << "\n=== Available Screens for " << filmTitle << " ===\n";
-    cout << "Screen | Facility      | Max seats | Available seats | Showtimes\n";
-    cout << "-------|---------------|-----------|-----------------|----------------------------\n";
+    cout << "\n--- Available Screens for " << filmTitle << " ---\n";
+    cout << "Screen | Facility      | Max seats | Available | Start Times | End Times\n";
+    cout << "-------|---------------|-----------|-----------|-------------|----------\n";
 
     bool found = false;
     for (int i = 0; i < screens.size(); i++)
@@ -427,8 +427,9 @@ void CinemaManager::displayScreensForFilm(string filmTitle)
                 cout << " ";
 
             cout << "| " << screens[i].getMaxSeats() << "        | "
-                 << screens[i].getAvailableSeats() << "              | ";
+                 << screens[i].getAvailableSeats() << "         | ";
 
+            // Display START times
             vector<string> showtimes = screens[i].getShowtimes();
             if (showtimes.size() > 0)
             {
@@ -436,6 +437,18 @@ void CinemaManager::displayScreensForFilm(string filmTitle)
                 {
                     cout << showtimes[j];
                     if (j < showtimes.size() - 1) cout << ", ";
+                }
+            }
+            cout << " | ";
+
+            // Display END times
+            vector<string> endTimes = screens[i].getShowEndTimes();
+            if (endTimes.size() > 0)
+            {
+                for (int j = 0; j < endTimes.size(); j++)
+                {
+                    cout << endTimes[j];
+                    if (j < endTimes.size() - 1) cout << ", ";
                 }
             }
             cout << "\n";
@@ -496,8 +509,8 @@ string CinemaManager::getValidStringInput()
 void CinemaManager::displayMainMenu()
 {
     cout << "\n--- Cinema Booking System ---" << endl;
-    cout << "1. Staff Mode (Make Bookings)" << endl;
-    cout << "2. Manager Mode (Schedule & Admin)" << endl;
+    cout << "1. Staff Mode" << endl;
+    cout << "2. Manager Mode" << endl;
     cout << "3. Exit" << endl;
     cout << "Enter choice (1-3): ";
 }

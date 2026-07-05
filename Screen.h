@@ -20,6 +20,7 @@ private:
     int availableSeats;
     Film* currentFilm;
     vector<string> showtimes;
+    vector<string> showEndTimes;
 
 public:
     // Constructors
@@ -33,6 +34,7 @@ public:
     int getAvailableSeats();
     Film* getCurrentFilm();
     vector<string> getShowtimes();
+    vector<string> getShowEndTimes();
 
     // Setters
     void setScreenNo(int no);
