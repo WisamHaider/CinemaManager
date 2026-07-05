@@ -16,7 +16,6 @@ public:
 
     // Date validation
     static bool isValidDate(string date); // DD/MM/YYYY format
-    static bool isCurrentWeek(string date); // Thursday to Wednesday
 
     // Time validation
     static bool isValidTime(string time); // HH:MM format
@@ -26,7 +25,6 @@ public:
     static bool hasEnoughSeats(int requestedTickets, int availableSeats);
 
     // String validation
-    static bool isValidEmail(string email);
     static bool isEmpty(string str);
 };
 

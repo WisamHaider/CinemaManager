@@ -39,12 +39,6 @@ bool Validation::isValidDate(string date) {
     return true;
 }
 
-bool Validation::isCurrentWeek(string date)
-{
-    // Check if date is between Thursday and Wednesday
-    return true;
-}
-
 bool Validation::isValidTime(string time)
 {
     // Check format HH:MM
@@ -89,14 +83,7 @@ bool Validation::hasEnoughSeats(int requestedTickets, int availableSeats)
     return requestedTickets <= availableSeats;
 }
 
-bool Validation::isValidEmail(string email)
-{
-    // Simple email validation
-    if (email.empty()) return false;
-    if (email.find('@') == string::npos) return false;
-    if (email.find('.') == string::npos) return false;
-    return true;
-}
+
 
 bool Validation::isEmpty(string str)
 {

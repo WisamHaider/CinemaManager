@@ -14,6 +14,7 @@ CinemaManager::CinemaManager()
     addDefaultFilms();
     initializeScreens();
     scheduleFilmsToScreens();
+    loadBookingHistory();
 }
 
 void CinemaManager::addDefaultFilms()
@@ -71,12 +72,6 @@ void CinemaManager::createBooking()
     if (!Validation::isValidDate(bookingDate))
     {
         cout << "Error: Invalid date format! Please use DD/MM/YYYY" << endl;
-        return;
-    }
-
-    if (!Validation::isCurrentWeek(bookingDate))
-    {
-        cout << "Error: Bookings can only be made for the current week (Thursday-Wednesday)!" << endl;
         return;
     }
 
@@ -154,12 +149,12 @@ void CinemaManager::createBooking()
 
     double total = booking.calculateTotal();
 
-    cout << "\n=== Booking Summary ===" << endl;
+    cout << "\n--- Booking Summary ---" << endl;
     cout << "Customer: " << booking.getCustomerName() << endl;
     cout << "Film: " << booking.getFilmTitle() << endl;
     cout << "Date: " << booking.getBookingDate() << endl;
     cout << "Time: " << booking.getBookingTime() << endl;
-    cout << "Total Cost: £" << total << endl;
+    cout << "Total Cost: " << total << endl;
 
     if (paymentMethod == "cash")
     {
@@ -214,6 +209,7 @@ void CinemaManager::createBooking()
 
 void CinemaManager::saveBookingToHistory(Booking booking)
 {
+    fileManager.saveBookingToFile(booking);
     bookingHistory.push_back(booking);
 }
 
@@ -239,7 +235,7 @@ void CinemaManager::displayBookingHistory()
 
 void CinemaManager::searchBookingsByName(string name)
 {
-    cout << "\n=== Search Results for Customer: " << name << " ===" << endl;
+    cout << "\n--- Search Results for Customer: " << name << " ---" << endl;
     bool found = false;
 
     for (int i = 0; i < bookingHistory.size(); i++)
@@ -373,16 +369,6 @@ void CinemaManager::managerCreateWeeklySchedule()
     cout << "All showtimes have been calculated based on cinema hours." << endl;
 }
 
-Film* CinemaManager::getFilmByTitle(string title)
-{
-    for (int i = 0; i < films.size(); i++)
-    {
-        if (films[i].getTitle() == title)
-            return &films[i];
-    }
-    return nullptr;
-}
-
 void CinemaManager::initializeScreens()
 {
     // Initialize 5 screens with varying capacities
@@ -494,18 +480,6 @@ double CinemaManager::getValidDoubleInput()
     return value;
 }
 
-string CinemaManager::getValidStringInput()
-{
-    string value;
-    while (!(cin >> value) || value.empty())
-    {
-        cin.clear();
-        cin.ignore(10000, '\n');
-        cout << "Invalid input. Please enter text: ";
-    }
-    return value;
-}
-
 void CinemaManager::displayMainMenu()
 {
     cout << "\n--- Cinema Booking System ---" << endl;
@@ -540,4 +514,18 @@ void CinemaManager::displayManagerMenu()
 void CinemaManager::displayScheduleFromFile()
 {
     fileManager.loadScheduleFromFile();
+}
+void CinemaManager::loadBookingHistory()
+{
+    vector<Booking> savedBookings = fileManager.loadBookingsFromFile();
+
+    for (int i = 0; i < savedBookings.size(); i++)
+    {
+        bookingHistory.push_back(savedBookings[i]);
+    }
+
+    if (savedBookings.size() > 0)
+    {
+        cout << "Loaded " << savedBookings.size() << " bookings from file." << endl;
+    }
 }

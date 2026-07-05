@@ -186,7 +186,7 @@ void FileManager::loadScheduleFromFile()
         return;
     }
 
-    cout << "\n=== Weekly Schedule from File ===" << endl;
+    cout << "\n--- Weekly Schedule from File ---" << endl;
     cout << "Screen | Facility | Film Title | Start Times | End Times" << endl;
     cout << "-------|----------|------------|-------------|----------" << endl;
 

@@ -29,7 +29,6 @@ public:
     // Film Management
     void addDefaultFilms();
     void displayFilms();
-    Film* getFilmByTitle(string title);
 
     // Screen Management
     void initializeScreens();
@@ -44,6 +43,7 @@ public:
     void searchBookingsByName(string name);
     void searchBookingsByFilm(string film);
     void searchBookingsByDate(string date);
+    void loadBookingHistory();
 
     // Manager Functions
     void managerAddNewFilm();
@@ -56,7 +56,6 @@ public:
 
     int getValidIntInput(int min, int max);
     double getValidDoubleInput();
-    string getValidStringInput();
 };
 
 #endif
